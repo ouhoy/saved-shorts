@@ -31,16 +31,6 @@ function waitForElm(selector) {
   });
 }
 
-waitForElm("#like-button").then((elm) => {
-  const shortsUrl = location.href.split("/")[3];
-  if (shortsUrl == "shorts") {
-    elm.insertAdjacentHTML("beforeEnd", htmlMarkup);
-    elm.addEventListener("click", function () {
-      console.log("from elm: ", window.location.href);
-    });
-  }
-});
-
 let lastUrl = location.href;
 new MutationObserver(() => {
   const url = location.href;
@@ -50,20 +40,44 @@ new MutationObserver(() => {
   }
 }).observe(document, { subtree: true, childList: true });
 
+waitForElm("#like-button").then((elm) => {
+  elm.insertAdjacentHTML("beforeEnd", htmlMarkup);
+  elm.addEventListener("click", function () {
+    console.log("from elm: ", window.location.href);
+  });
+});
+
 function onUrlChange() {
   const shortsUrl = location.href.split("/")[3];
   if (shortsUrl == "shorts") {
-    currentShort++;
-    let myEl = document.getElementById(`${currentShort}`);
-    if (myEl) {
-      myEl
-        .querySelector("#like-button")
-        .insertAdjacentHTML("beforeEnd", htmlMarkup);
-      myEl.addEventListener("click", function (e) {
-        if (e.target.closest(".save-short")) {
+    console.log("Current short", currentShort);
+
+    console.log("Current short++", currentShort);
+    if (currentShort == 0) {
+      waitForElm("#like-button").then((elm) => {
+        elm.insertAdjacentHTML("beforeEnd", htmlMarkup);
+        elm.addEventListener("click", function () {
           console.log("from elm: ", window.location.href);
-        }
+        });
       });
+      currentShort++;
+    } else {
+      let myEl = document.getElementById(`${currentShort}`);
+      console.log(myEl);
+      if (myEl) {
+        console.log(myEl);
+        myEl
+          .querySelector("#like-button")
+          .insertAdjacentHTML("beforeEnd", htmlMarkup);
+        myEl.addEventListener("click", function (e) {
+          if (e.target.closest(".save-short")) {
+            console.log("from elm: ", window.location.href);
+          }
+        });
+      }
+      currentShort++;
     }
+  } else {
+    currentShort = 0;
   }
 }
