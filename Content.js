@@ -1,5 +1,5 @@
-function $(id, slectAll = false) {
-  return slectAll ? document.querySelectorAll(id) : document.querySelector(id);
+function $(id, selectAll = false) {
+    return selectAll ? document.querySelectorAll(id) : document.querySelector(id);
 }
 
 let myBtns = $("#like-button");
@@ -12,72 +12,80 @@ margin-top: 8px;
 `;
 
 function waitForElm(selector) {
-  return new Promise((resolve) => {
-    if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector));
-    }
+    return new Promise((resolve) => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
 
-    const observer = new MutationObserver((mutations) => {
-      if (document.querySelector(selector)) {
-        resolve(document.querySelector(selector));
-        observer.disconnect();
-      }
-    });
+        const observer = new MutationObserver((mutations) => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+            }
+        });
 
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+        });
     });
-  });
 }
 
 let lastUrl = location.href;
 new MutationObserver(() => {
-  const url = location.href;
-  if (url !== lastUrl) {
-    lastUrl = url;
-    onUrlChange();
-  }
-}).observe(document, { subtree: true, childList: true });
+    const url = location.href;
+    if (url !== lastUrl) {
+        lastUrl = url;
+        onUrlChange();
+    }
+}).observe(document, {subtree: true, childList: true});
 
 waitForElm("#like-button").then((elm) => {
-  elm.insertAdjacentHTML("beforeEnd", htmlMarkup);
-  elm.addEventListener("click", function () {
-    console.log("from elm: ", window.location.href);
-  });
+    elm.insertAdjacentHTML("beforeend", htmlMarkup);
+    elm.addEventListener("click", function () {
+        console.log("from elm: ", window.location.href);
+    });
 });
 
 function onUrlChange() {
-  const shortsUrl = location.href.split("/")[3];
-  if (shortsUrl == "shorts") {
-    console.log("Current short", currentShort);
+    const shortsUrl = location.href.split("/")[3];
+    if (shortsUrl == "shorts") {
+        console.log("Current short", currentShort);
 
-    console.log("Current short++", currentShort);
-    if (currentShort == 0) {
-      waitForElm("#like-button").then((elm) => {
-        elm.insertAdjacentHTML("beforeEnd", htmlMarkup);
-        elm.addEventListener("click", function () {
-          console.log("from elm: ", window.location.href);
-        });
-      });
-      currentShort++;
+        console.log("Current short++", currentShort);
+        if (currentShort == 0) {
+            waitForElm("#like-button").then((elm) => {
+                elm.insertAdjacentHTML("beforeend", htmlMarkup);
+                elm.addEventListener("click", function () {
+                    console.log("from elm: ", window.location.href);
+                });
+            });
+            currentShort++;
+        } else {
+            let myEl = document.getElementById(`${currentShort}`);
+            console.log(myEl);
+            if (myEl) {
+                console.log(myEl);
+                const newEl = document.querySelectorAll("[is-active]")[1].querySelector("#right").querySelector("#actions")
+                newEl.insertAdjacentHTML("beforeend", htmlMarkup);
+
+                myEl
+                    .querySelector("#like-button")
+                    .insertAdjacentHTML("beforeend", htmlMarkup);
+                myEl.addEventListener("click", function (e) {
+                    if (e.target.closest(".save-short")) {
+                        console.log("from elm: ", window.location.href);
+                    }
+                });
+                newEl.addEventListener("click", function (e) {
+                    if (e.target.closest(".save-short")) {
+                        console.log("from elm: ", window.location.href);
+                    }
+                });
+            }
+            currentShort++;
+        }
     } else {
-      let myEl = document.getElementById(`${currentShort}`);
-      console.log(myEl);
-      if (myEl) {
-        console.log(myEl);
-        myEl
-          .querySelector("#like-button")
-          .insertAdjacentHTML("beforeEnd", htmlMarkup);
-        myEl.addEventListener("click", function (e) {
-          if (e.target.closest(".save-short")) {
-            console.log("from elm: ", window.location.href);
-          }
-        });
-      }
-      currentShort++;
+        currentShort = 0;
     }
-  } else {
-    currentShort = 0;
-  }
 }
