@@ -1,9 +1,7 @@
 import {htmlMarkup} from "../models/elements";
 
 
-
-
-function $(id: string, selectAll: boolean = false){
+function $(id: string, selectAll: boolean = false) {
     return selectAll ? (document.querySelectorAll(id)) : document.querySelector;
 }
 
@@ -15,9 +13,11 @@ function $(id: string, selectAll: boolean = false){
 //     date: Date
 // }
 
+
+
 const savedUrls: string[] = []
 
-function waitForElement(selector: string) {
+function waitForElement(selector: string): Promise<any> {
 
     return new Promise((resolve) => {
 
@@ -58,14 +58,17 @@ waitForElement("#like-button").then(() => {
 
 });
 
-waitForElement("#shorts-container").then((shortsContainer) => {
+// On Save Button Click
+waitForElement("#shorts-container").then((shortsContainer: HTMLElement) => {
 
-    // @ts-ignore
-    shortsContainer.addEventListener("click", function (e) {
 
-        const saveShortButton = e.target.closest(".save-short");
+    shortsContainer.addEventListener("click", function (e: MouseEvent) {
 
-        if (saveShortButton) savedUrls.push(window.location.href)
+        const saveShortButton = (e.target as HTMLElement).closest(".save-short");
+
+        if (!saveShortButton) return;
+
+        savedUrls.push(window.location.href)
 
         console.log(savedUrls)
 
@@ -79,6 +82,7 @@ let initialLength = ($("#comments-button", true) as NodeList).length
 
 
 function onUrlChange() {
+    console.log("Hellooooooooooooooooo");
 
     const newLength = ($("#comments-button", true) as NodeList).length
     if (initialLength === newLength) return;
