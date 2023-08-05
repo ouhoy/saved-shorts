@@ -103,6 +103,8 @@ waitForElement("#shorts-container").then((shortsContainer) => {
             } else {
                 saveShortButton.setAttribute("saved-short", "false");
                 saveShortButton.nextElementSibling.innerHTML = savedElement.replace("Saved", "Save");
+
+                //TODO Remove the URL from the array object
             }
 
             console.log(savedShorts)
