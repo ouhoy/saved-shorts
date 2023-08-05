@@ -48,12 +48,17 @@ new MutationObserver(() => {
     const url = location.href;
     if (url !== lastUrl) {
         lastUrl = url;
-        onUrlChange();
+        onShortChange();
     }
 }).observe(document, {subtree: true, childList: true});
 
+
+let initialLength;
+// Render Button on First Load
 waitForElement("#like-button").then(() => {
 
+    initialLength = ($("#comments-button", true) as NodeList).length;
+    console.log(initialLength);
     ($("#comments-button", true) as NodeListOf<Element>).forEach((buttonContainer, index) => {
         buttonContainer.parentNode.children[2].insertAdjacentHTML("beforeend", htmlMarkup)
 
@@ -61,6 +66,8 @@ waitForElement("#like-button").then(() => {
 
 });
 
+
+// Add Click Event To Buttons
 waitForElement("#shorts-container").then((shortsContainer) => {
 
     // @ts-ignore
@@ -78,14 +85,12 @@ waitForElement("#shorts-container").then((shortsContainer) => {
 });
 
 
-let initialLength = ($("#comments-button", true) as NodeList).length
-
-
-function onUrlChange() {
+function onShortChange() {
 
     const newLength = ($("#comments-button", true) as NodeList).length
     if (initialLength === newLength) return;
-    console.log("Rendered Again")
+    console.log("Rendered Again", `${initialLength} ${newLength}`)
+
     // Render New Save Shorts Button Elements
     Array.from(document.querySelectorAll("#comments-button")).slice(initialLength, newLength)
         .forEach((buttonContainer) => {
@@ -96,3 +101,4 @@ function onUrlChange() {
 
 
 }
+
