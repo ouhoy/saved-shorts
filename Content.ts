@@ -8,6 +8,8 @@ margin-top: 8px;
 <div class="save-short yt-spec-button-shape-with-label__label"><span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap yt-core-attributed-string--text-alignment-center yt-core-attributed-string--word-wrapping" role="text">Save</span></div>
 `;
 
+const savedElement = `<span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap yt-core-attributed-string--text-alignment-center yt-core-attributed-string--word-wrapping" role="text">Saved</span>`
+
 function $(id: string, selectAll: boolean = false): Element | NodeListOf<Element> {
     return selectAll ? (document.querySelectorAll(id) as NodeListOf<Element>) : document.querySelector<Element>(id);
 }
@@ -23,11 +25,9 @@ interface SavedShortsUrl {
 
 const savedShorts: SavedShortsUrl[] = []
 
-function addUniqueObject(array, newObj) {
-    const index = array.findIndex((obj) => obj.url === newObj.url);
-    if (index === -1) {
-        array.push(newObj);
-    }
+function addUniqueObject(array: SavedShortsUrl[], newObj: SavedShortsUrl) {
+    const index = array.findIndex((obj: SavedShortsUrl) => obj.url === newObj.url);
+    if (index === -1) array.push(newObj);
 }
 
 function waitForElement(selector) {
@@ -80,11 +80,11 @@ waitForElement("#shorts-container").then((shortsContainer) => {
     // @ts-ignore
     shortsContainer.addEventListener("click", function (e) {
 
-        const saveShortButton = e.target.closest(".save-short");
+        const saveShortButton = e.target.closest(".save-short") as HTMLElement;
 
         if (saveShortButton) {
 
-            const shortDetails = saveShortButton.parentElement.parentElement.parentElement.querySelector("#overlay").innerText.split("\n")
+            const shortDetails = (saveShortButton.parentElement.parentElement.parentElement.querySelector("#overlay") as HTMLElement).innerText.split("\n")
 
             const title: string = shortDetails[0];
             const creator: string = shortDetails[1];
@@ -92,9 +92,18 @@ waitForElement("#shorts-container").then((shortsContainer) => {
             const url: string = window.location.href;
             const date = new Date();
 
-            addUniqueObject(savedShorts, {title, creator, subscribed, url, date})
 
-            
+            const isSaved = saveShortButton.getAttribute("saved-short") === "true";
+
+            if (!isSaved) {
+                saveShortButton.setAttribute("saved-short", "true");
+                saveShortButton.nextElementSibling.innerHTML = savedElement;
+                addUniqueObject(savedShorts, {title, creator, subscribed, url, date})
+
+            } else {
+                saveShortButton.setAttribute("saved-short", "false");
+                saveShortButton.nextElementSibling.innerHTML = savedElement.replace("Saved", "Save");
+            }
 
             console.log(savedShorts)
 
