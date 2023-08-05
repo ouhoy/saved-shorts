@@ -20,6 +20,8 @@ interface SavedShortsUrl {
     date: Date
 }
 
+const uniqueUrls: Set<string> = new Set()
+
 const savedUrls: string[] = []
 
 function waitForElement(selector) {
@@ -66,7 +68,6 @@ waitForElement("#like-button").then(() => {
 
 });
 
-
 // Add Click Event To Buttons
 waitForElement("#shorts-container").then((shortsContainer) => {
 
@@ -75,9 +76,9 @@ waitForElement("#shorts-container").then((shortsContainer) => {
 
         const saveShortButton = e.target.closest(".save-short");
 
-        if (saveShortButton) savedUrls.push(window.location.href)
+        if (saveShortButton) uniqueUrls.add(window.location.href)
 
-        console.log(savedUrls)
+        console.log(Array.from(uniqueUrls))
 
 
     })
@@ -87,9 +88,10 @@ waitForElement("#shorts-container").then((shortsContainer) => {
 
 function onShortChange() {
 
+    // Watch Rendered Shorts Length
     const newLength = ($("#comments-button", true) as NodeList).length
     if (initialLength === newLength) return;
-    console.log("Rendered Again", `${initialLength} ${newLength}`)
+
 
     // Render New Save Shorts Button Elements
     Array.from(document.querySelectorAll("#comments-button")).slice(initialLength, newLength)
