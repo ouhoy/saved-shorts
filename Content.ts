@@ -14,18 +14,23 @@ function $(id: string, selectAll: boolean = false) {
 }
 
 function addUniqueObject(array: SavedShortsUrl[], newObj: SavedShortsUrl) {
-    const index = array.findIndex((obj: SavedShortsUrl) => obj.url === newObj.url);
+    const index = array.findIndex((obj: SavedShortsUrl) => obj.id === newObj.id);
     if (index === -1) array.push(newObj);
 }
 
-function removeUniqueObject(array: SavedShortsUrl[], url: string) {
-    const index = array.findIndex((obj: SavedShortsUrl) => obj.url === url);
+function removeUniqueObject(array: SavedShortsUrl[], id: string) {
+    const index = array.findIndex((obj: SavedShortsUrl) => obj.id === id);
     if (index !== -1) array.splice(index, 1);
 
 }
 
-const savedShorts: SavedShortsUrl[] = [];
-
+const savedShorts: SavedShortsUrl[] = [{
+    title: "EXPOSING Washing Machines | The Shocking Reality of a “Clean” Washing Machine",
+    creator: "@theappliancedudes",
+    subscribed: false,
+    id: "pWk2SssaswM",
+    date: new Date()
+}];
 
 function waitForElement(selector: string) {
 
@@ -48,6 +53,23 @@ function waitForElement(selector: string) {
     });
 }
 
+function waitForBackgroundImage(element: HTMLElement, callback: (backgroundImage: string) => void) {
+    const observer = new MutationObserver((mutationsList, observer) => {
+        const backgroundImage = getComputedStyle(element).backgroundImage;
+        if (backgroundImage && backgroundImage !== 'none') {
+            observer.disconnect();
+            callback(backgroundImage);
+        }
+    });
+    observer.observe(element, {attributes: true, attributeFilter: ['style']});
+}
+
+/*-------------------------------------------------------------------------*/
+//                          OPERATIONS                                     //
+/*-------------------------------------------------------------------------*/
+
+
+// Observe URL Change
 let lastUrl = location.href;
 new MutationObserver(() => {
     const url = location.href;
@@ -57,19 +79,27 @@ new MutationObserver(() => {
     }
 }).observe(document, {subtree: true, childList: true});
 
-
+// Render Buttons on First Load
 let initialLength: number;
-// Render Button on First Load
 waitForElement("#like-button").then(() => {
 
     initialLength = ($("#comments-button", true) as NodeList).length;
     console.log(initialLength);
-    ($("#comments-button", true) as NodeListOf<Element>).forEach((buttonContainer, index) => {
-        (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup)
+    ($("#comments-button", true) as NodeListOf<Element>).forEach(async (buttonContainer, index) => {
+        (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
+
+        const myElement = (($("#comments-button", true) as NodeListOf<Element>)[index].parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.children[1] as HTMLElement);
+        waitForBackgroundImage(myElement, (backgroundImage) => {
+            console.log('Background image is now ready:', backgroundImage);
+            // Perform your action here with the backgroundImage
+        });
+
 
     })
 
+
 });
+
 
 // Add Click Event To Buttons
 waitForElement("#shorts-container").then((shortsContainer) => {
@@ -82,11 +112,10 @@ waitForElement("#shorts-container").then((shortsContainer) => {
         if (saveShortButton) {
             //TODO Fix This
             const shortDetails = (saveShortButton?.parentElement?.parentElement?.parentElement?.querySelector("#overlay") as HTMLElement).innerText.split("\n")
-
             const title: string = shortDetails[0];
             const creator: string = shortDetails[1];
             const subscribed: boolean = shortDetails[2] === "Subscribed";
-            const url: string = window.location.href;
+            const id: string = window.location.href.split("/")[4];
             const date = new Date();
 
 
@@ -95,14 +124,14 @@ waitForElement("#shorts-container").then((shortsContainer) => {
             if (!isSaved) {
                 saveShortButton.setAttribute("saved-short", "true");
                 (saveShortButton.nextElementSibling as HTMLElement).innerHTML = savedElement;
-                addUniqueObject(savedShorts, {title, creator, subscribed, url, date})
+                addUniqueObject(savedShorts, {title, creator, subscribed, id, date})
 
             } else {
                 saveShortButton.setAttribute("saved-short", "false");
                 (saveShortButton.nextElementSibling as HTMLElement).innerHTML = savedElement.replace("Saved", "Save");
 
                 //TODO Remove the URL from the array object
-                removeUniqueObject(savedShorts, url)
+                removeUniqueObject(savedShorts, id)
             }
 
             console.log(savedShorts)
@@ -113,10 +142,17 @@ waitForElement("#shorts-container").then((shortsContainer) => {
 
     })
 
+
 });
 
 
 function onShortChange() {
+
+    for (let i = 1; i < initialLength; i++) {
+        // @ts-ignore
+        const bg = document.querySelectorAll("#like-button > button")[i].parentElement.parentElement.parentElement.parentElement.parentElement.children[1].style["backgroundImage"]
+        console.log(bg)
+    }
 
     // Watch Rendered Shorts Length
     const newLength = ($("#comments-button", true) as NodeList).length
@@ -133,4 +169,6 @@ function onShortChange() {
 
 
 }
+
+
 
