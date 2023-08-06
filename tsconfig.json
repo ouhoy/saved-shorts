@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "ES2022",
     "target": "ES2022",
     "sourceMap": true,
     "strict": true,
+    "types": [
+      "chrome"
+    ]
   },
   "exclude": [
     "node_modules"
