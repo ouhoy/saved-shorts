@@ -1,6 +1,7 @@
 {
   "name": "saved-shorts",
   "version": "1.0.0",
+  "type": "module",
   "description": "This web extension is used to save your shorts videos to a list since youtube didn't implement this feature yet.",
   "main": "main.js",
   "scripts": {
