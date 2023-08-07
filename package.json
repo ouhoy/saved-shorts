@@ -1,19 +1,18 @@
 {
+  "dependencies": {
+    "@types/chrome": "^0.0.243",
+    "vite": "^4.4.8"
+  },
   "name": "saved-shorts",
-  "version": "1.0.0",
-  "type": "module",
   "description": "This web extension is used to save your shorts videos to a list since youtube didn't implement this feature yet.",
-  "main": "main.js",
+  "version": "1.0.0",
+  "main": "Content.js",
   "scripts": {
-    "build": "vite build",
+    "start": "vite build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@types/chrome": "^0.0.243",
-    "csstype": "^3.1.2",
-    "vite": "^4.4.8"
-  }
+  "types": "./Content.d.ts"
 }

@@ -14,7 +14,7 @@
         "https://www.youtube.com/*"
       ],
       "js": [
-        "Content.js"
+        "./dist/Content.js"
       ]
     }
   ]

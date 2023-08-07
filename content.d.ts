@@ -1,6 +1,6 @@
 
 
-declare interface SavedShortsUrl {
+declare interface ShortDetails {
     title: string,
     creator: string,
     id: string,
