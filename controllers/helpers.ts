@@ -4,7 +4,12 @@ export function $(id: string, selectAll: boolean = false) {
 
 export function addUniqueObject(array: ShortDetails[], newObj: ShortDetails) {
     const index = array.findIndex((obj: ShortDetails) => obj.id === newObj.id);
-    if (index === -1) array.push(newObj);
+    if (index === -1) {
+        array.push(newObj);
+        chrome.storage.local.set({savedShorts: array}).then((result) => {
+
+        });
+    }
 }
 
 export function removeUniqueObject(array: ShortDetails[], id: string) {
@@ -12,10 +17,8 @@ export function removeUniqueObject(array: ShortDetails[], id: string) {
     if (index !== -1) {
         array.splice(index, 1);
 
-        chrome.storage.local.get(["savedShorts"]).then((result) => {
+      chrome.storage.local.set({savedShorts: array}).then((result) => {
 
-            result.savedShorts.splice(index, 1)
-            console.table(result.savedShorts)
         });
     }
 

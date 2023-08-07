@@ -2,13 +2,16 @@ import {htmlMarkup, savedElement} from "./models/elements";
 import {$, addUniqueObject, removeUniqueObject, checkForId} from "./controllers/helpers";
 
 
-const savedShorts: ShortDetails[] = [{
-    title: "When your friend tries to SNEAK you into THEIR gym",
-    creator: "@EdwardSo",
-    subscribed: true,
-    id: "vtDyDVs4Kkk",
-    date: new Date()
-}];
+const savedShorts: ShortDetails[] = [];
+
+chrome.storage.local.get(["savedShorts"]).then((result) => {
+
+    console.log("SavedShorts[] Before: ", savedShorts)
+    console.log("Local Storage: ", result.savedShorts)
+    savedShorts.push(...result.savedShorts);
+    console.log("SavedShorts[] After: ", savedShorts)
+
+});
 
 function waitForElement(selector: string) {
 
@@ -17,7 +20,7 @@ function waitForElement(selector: string) {
         if ($(selector)) return resolve($(selector));
 
         const observer = new MutationObserver((mutations) => {
-            console.log("Mutations: ", mutations)
+
             if ($(selector)) {
                 resolve($(selector));
                 observer.disconnect();
