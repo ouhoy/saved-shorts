@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5dff6185-6a85-4f01-a09a-ae4ad59b6341" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/obsevers.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Content.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/helpers.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +19,8 @@
       <list>
         <option value="HTML File" />
         <option value="tsconfig.json" />
-        <option value="TypeScript File" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -118,6 +118,8 @@
         <option value="$PROJECT_DIR$/content.d.ts" />
         <option value="$PROJECT_DIR$/controllers/helpers.js.map" />
         <option value="$PROJECT_DIR$/controllers/helpers.js" />
+        <option value="$PROJECT_DIR$/controllers/obsevers.js.map" />
+        <option value="$PROJECT_DIR$/controllers/obsevers.js" />
       </list>
     </option>
   </component>

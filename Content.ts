@@ -1,6 +1,6 @@
 import {htmlMarkup, savedElement} from "./models/elements";
 import {$, addUniqueObject, removeUniqueObject, checkForId} from "./controllers/helpers";
-
+import {watchUrl, waitForElement, waitForBackgroundImage} from "./controllers/obsevers";
 
 const savedShorts: ShortDetails[] = [];
 
@@ -13,49 +13,6 @@ chrome.storage.local.get(["savedShorts"]).then((result) => {
 
 });
 
-function waitForElement(selector: string) {
-
-    return new Promise((resolve) => {
-
-        if ($(selector)) return resolve($(selector));
-
-        const observer = new MutationObserver((mutations) => {
-
-            if ($(selector)) {
-                resolve($(selector));
-                observer.disconnect();
-            }
-        });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-        });
-
-    });
-}
-
-function waitForBackgroundImage(element: HTMLElement, callback: (backgroundImage: string) => void) {
-    const observer = new MutationObserver((mutationsList, observer) => {
-        const backgroundImage = getComputedStyle(element).backgroundImage;
-        if (backgroundImage && backgroundImage !== 'none') {
-            observer.disconnect();
-            callback(backgroundImage);
-        }
-    });
-    observer.observe(element, {attributes: true, attributeFilter: ['style']});
-}
-
-
-// Observe URL Change
-let lastUrl = location.href;
-new MutationObserver(() => {
-    const url = location.href;
-    if (url !== lastUrl) {
-        lastUrl = url;
-        onShortChange();
-    }
-}).observe(document, {subtree: true, childList: true});
 
 // Render Buttons on First Load
 let initialLength: number;
@@ -181,4 +138,4 @@ function onShortChange() {
 }
 
 
-
+watchUrl(onShortChange)
