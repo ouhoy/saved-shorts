@@ -27,8 +27,10 @@ waitForElement("#like-button").then(() => {
         const saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
 
         if (index === 0) {
+            console.log("On First Element!")
             const id = window.location.href.split("/")[4]
             if (checkForId(savedShorts, id)) {
+                console.log("Working on First Element!")
                 saveShortButton.setAttribute("saved-short", "true");
                 if (saveShortButton.nextElementSibling !== null) {
                     saveShortButton.nextElementSibling.innerHTML = savedElement;

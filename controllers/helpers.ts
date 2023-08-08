@@ -7,9 +7,12 @@ export function addUniqueObject(array: ShortDetails[], newObj: ShortDetails) {
     if (index === -1) {
         array.push(newObj);
         chrome.storage.local.set({savedShorts: array}).then((result) => {
+            console.log("Added!")
+            console.table(array)
 
         });
     }
+
 }
 
 export function removeUniqueObject(array: ShortDetails[], id: string) {
@@ -17,8 +20,9 @@ export function removeUniqueObject(array: ShortDetails[], id: string) {
     if (index !== -1) {
         array.splice(index, 1);
 
-      chrome.storage.local.set({savedShorts: array}).then((result) => {
-
+        chrome.storage.local.set({savedShorts: array}).then((result) => {
+            console.log("Removed!")
+            console.table(array)
         });
     }
 
