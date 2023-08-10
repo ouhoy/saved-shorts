@@ -1,4 +1,4 @@
-import {htmlMarkup, savedElement} from "./models/elements";
+import {htmlMarkup, inActiveSaveButtonSpan, activeSaveButtonSpan} from "./models/elements";
 import {$, addUniqueObject, removeUniqueObject, checkForId} from "./controllers/helpers";
 import {watchUrl, waitForElement, waitForBackgroundImage} from "./controllers/obsevers";
 
@@ -33,7 +33,7 @@ waitForElement("#like-button").then(() => {
                 console.log("Working on First Element!")
                 saveShortButton.setAttribute("saved-short", "true");
                 if (saveShortButton.nextElementSibling !== null) {
-                    saveShortButton.nextElementSibling.innerHTML = savedElement;
+                    saveShortButton.nextElementSibling.innerHTML = inActiveSaveButtonSpan;
                 }
                 saveShortButton.style.backgroundColor = "black";
             }
@@ -48,7 +48,7 @@ waitForElement("#like-button").then(() => {
                 if (checkForId(savedShorts, id)) {
                     saveShortButton.setAttribute("saved-short", "true");
                     if (saveShortButton.nextElementSibling !== null) {
-                        saveShortButton.nextElementSibling.innerHTML = savedElement;
+                        saveShortButton.nextElementSibling.innerHTML = inActiveSaveButtonSpan;
                     }
                     saveShortButton.style.backgroundColor = "black";
                 }
@@ -68,7 +68,7 @@ waitForElement("#shorts-container").then((shortsContainer) => {
     shortsContainer.addEventListener("click", function (e) {
 
         const saveShortButton = e.target.closest(".save-short") as HTMLElement;
-
+        const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
 
         // TODO Make Its Own Function ^^
 
@@ -82,20 +82,19 @@ waitForElement("#shorts-container").then((shortsContainer) => {
             const date = new Date();
 
             const isSaved = saveShortButton.getAttribute("saved-short") === "true";
+
+            // Style Button
             saveShortButton.setAttribute("saved-short", `${!isSaved}`);
             saveShortButton.style.backgroundColor =isSaved? "rgba(0, 0, 0, 0.05)": "black";
+            saveShortButtonTitle.innerHTML = isSaved? activeSaveButtonSpan: inActiveSaveButtonSpan;
 
             if (!isSaved) {
                 console.log("Adding!");
-                (saveShortButton.nextElementSibling as HTMLElement).innerHTML = savedElement;
-
                 addUniqueObject(savedShorts, {title, creator, subscribed, id, date})
 
             }
             if (isSaved) {
                 console.log("Removing!");
-                (saveShortButton.nextElementSibling as HTMLElement).innerHTML = savedElement.replace("Saved", "Save");
-
                 //TODO Remove the URL from the array object
                 removeUniqueObject(savedShorts, id)
             }

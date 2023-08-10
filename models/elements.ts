@@ -5,4 +5,5 @@ margin-top: 8px;
 <div class="save-short yt-spec-button-shape-with-label__label"><span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap yt-core-attributed-string--text-alignment-center yt-core-attributed-string--word-wrapping" role="text">Save</span></div>
 `;
 
-export const savedElement = `<span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap yt-core-attributed-string--text-alignment-center yt-core-attributed-string--word-wrapping" role="text">Saved</span>`;
+export const inActiveSaveButtonSpan = `<span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap yt-core-attributed-string--text-alignment-center yt-core-attributed-string--word-wrapping" role="text">Saved</span>`;
+export const activeSaveButtonSpan = inActiveSaveButtonSpan.replace("Saved", "Save")
