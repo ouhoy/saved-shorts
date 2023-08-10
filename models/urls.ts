@@ -1,0 +1,1 @@
+export const shortsUrl = location.href.split("/")[3] !== "shorts";

@@ -39,6 +39,7 @@ waitForElement("#like-button").then(() => {
             }
         }
         if (index) {
+            console.log("On other elements!")
             const myElement = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
 
 
@@ -81,21 +82,19 @@ waitForElement("#shorts-container").then((shortsContainer) => {
             const date = new Date();
 
             const isSaved = saveShortButton.getAttribute("saved-short") === "true";
+            saveShortButton.setAttribute("saved-short", `${!isSaved}`);
+            saveShortButton.style.backgroundColor =isSaved? "rgba(0, 0, 0, 0.05)": "black";
 
             if (!isSaved) {
-                console.log("Adding!")
-                saveShortButton.setAttribute("saved-short", "true");
+                console.log("Adding!");
                 (saveShortButton.nextElementSibling as HTMLElement).innerHTML = savedElement;
-                saveShortButton.style.backgroundColor = "black";
 
                 addUniqueObject(savedShorts, {title, creator, subscribed, id, date})
 
             }
             if (isSaved) {
-                console.log("Removing!")
-                saveShortButton.setAttribute("saved-short", "false");
+                console.log("Removing!");
                 (saveShortButton.nextElementSibling as HTMLElement).innerHTML = savedElement.replace("Saved", "Save");
-                saveShortButton.style.backgroundColor = "rgba(0, 0, 0, 0.05)";
 
                 //TODO Remove the URL from the array object
                 removeUniqueObject(savedShorts, id)
@@ -139,5 +138,15 @@ function onShortChange() {
 
 }
 
+watchUrl(() => {
+
+    if (location.href.split("/")[3] !== "shorts") {
+
+        console.log(location.href)
+
+    } else {
+        console.log("Good Good hh!")
+    }
+})
 
 watchUrl(onShortChange)
