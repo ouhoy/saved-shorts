@@ -13,6 +13,31 @@ chrome.storage.local.get(["savedShorts"]).then((result) => {
 
 });
 
+class Short {
+    private shorts: ShortDetails[] = [];
+
+    constructor() {
+
+
+    }
+
+    add(short: ShortDetails) {
+        const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === short.id);
+        if (index === -1) this.shorts.push(short);
+        console.log("Added to Class!")
+        console.log("Here is the class: ", this.shorts)
+    };
+
+    remove(id: ShortDetails["id"]) {
+        const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
+        if (index !== -1) this.shorts.splice(index, 1);
+        console.log("Removed From Class!")
+        console.log("Here is the class: ", this.shorts)
+    };
+}
+
+const short = new Short();
+
 
 // Render Buttons on First Load
 let initialLength: number;
@@ -85,8 +110,11 @@ waitForElement("#shorts-container").then((shortsContainer) => {
 
             // Style Button
             saveShortButton.setAttribute("saved-short", `${!isSaved}`);
-            saveShortButton.style.backgroundColor =isSaved? "rgba(0, 0, 0, 0.05)": "black";
-            saveShortButtonTitle.innerHTML = isSaved? activeSaveButtonSpan: inActiveSaveButtonSpan;
+            saveShortButton.style.backgroundColor = isSaved ? "rgba(0, 0, 0, 0.05)" : "black";
+            saveShortButtonTitle.innerHTML = isSaved ? activeSaveButtonSpan : inActiveSaveButtonSpan;
+
+            isSaved ? short.remove(id) : short.add({title, creator, subscribed, id, date});
+
 
             if (!isSaved) {
                 console.log("Adding!");
