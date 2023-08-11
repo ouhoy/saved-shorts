@@ -1,5 +1,5 @@
 import {htmlMarkup, inActiveSaveButtonSpan, activeSaveButtonSpan} from "./models/elements";
-import {$, addUniqueObject, removeUniqueObject, checkForId} from "./controllers/helpers";
+import {$} from "./controllers/helpers";
 import {watchUrl, waitForElement, waitForBackgroundImage} from "./controllers/obsevers";
 
 const savedShorts: ShortDetails[] = [];
@@ -16,11 +16,12 @@ class Short {
     }
 
     add(short: ShortDetails) {
-        const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === short.id);
-        if (index === -1) {
-            this.shorts.push(short)
-            this.refresh()
-        }
+        if (this.exists(short.id)) return
+        this.shorts.push(short)
+        this.refresh()
+        console.log("Short added", this.shorts);
+
+
     };
 
     remove(id: ShortDetails["id"]) {
@@ -28,11 +29,18 @@ class Short {
         if (index !== -1) {
             this.shorts.splice(index, 1);
             this.refresh()
+
         }
-    };
+    }
+
+    exists(id: ShortDetails["id"]): boolean {
+        const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
+        return index !== -1;
+    }
 
     private refresh() {
         chrome.storage.local.set({savedShorts: this.shorts}).then(() => {
+            console.table(this.shorts)
         });
     }
 
@@ -59,10 +67,9 @@ waitForElement("#like-button").then(() => {
         const saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
 
         if (index === 0) {
-            console.log("On First Element!")
             const id = window.location.href.split("/")[4]
-            if (checkForId(savedShorts, id)) {
-                console.log("Working on First Element!")
+            if (short.exists(id)) {
+
                 saveShortButton.setAttribute("saved-short", "true");
                 if (saveShortButton.nextElementSibling !== null) {
                     saveShortButton.nextElementSibling.innerHTML = inActiveSaveButtonSpan;
@@ -71,13 +78,13 @@ waitForElement("#like-button").then(() => {
             }
         }
         if (index) {
-            console.log("On other elements!")
+
             const myElement = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
 
 
             waitForBackgroundImage(myElement, (backgroundImage) => {
                 const id = backgroundImage.split("/")[4];
-                if (checkForId(savedShorts, id)) {
+                if (short.exists(id)) {
                     saveShortButton.setAttribute("saved-short", "true");
                     if (saveShortButton.nextElementSibling !== null) {
                         saveShortButton.nextElementSibling.innerHTML = inActiveSaveButtonSpan;
@@ -123,19 +130,16 @@ waitForElement("#shorts-container").then((shortsContainer) => {
             isSaved ? short.remove(id) : short.add({title, creator, subscribed, id, date});
 
 
-            if (!isSaved) {
-                console.log("Adding!");
-                addUniqueObject(savedShorts, {title, creator, subscribed, id, date})
-
-            }
-            if (isSaved) {
-                console.log("Removing!");
-                //TODO Remove the URL from the array object
-                removeUniqueObject(savedShorts, id)
-            }
-
-
-            console.log(savedShorts)
+            // if (!isSaved) {
+            //     console.log("Adding!");
+            //     addUniqueObject(savedShorts, {title, creator, subscribed, id, date})
+            //
+            // }
+            // if (isSaved) {
+            //     console.log("Removing!");
+            //     //TODO Remove the URL from the array object
+            //     removeUniqueObject(savedShorts, id)
+            // }
 
 
         }
