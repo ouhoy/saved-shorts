@@ -12,17 +12,14 @@ class Short {
     private shorts: ShortDetails[] = [];
 
     constructor() {
-        chrome.storage.local.get(["savedShorts"]).then((result) => {
-            this.shorts.push(...result.savedShorts);
-        });
-
+        this.fillShortsArray();
     }
 
     add(short: ShortDetails) {
         const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === short.id);
         if (index === -1) {
             this.shorts.push(short)
-            this.refreshArray()
+            this.refresh()
         }
     };
 
@@ -30,14 +27,18 @@ class Short {
         const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
         if (index !== -1) {
             this.shorts.splice(index, 1);
-            this.refreshArray()
+            this.refresh()
         }
     };
 
-    private refreshArray() {
-        chrome.storage.local.set({savedShorts: this.shorts}).then((result) => {
+    private refresh() {
+        chrome.storage.local.set({savedShorts: this.shorts}).then(() => {
+        });
+    }
 
-
+    private fillShortsArray() {
+        chrome.storage.local.get(["savedShorts"]).then((result) => {
+            this.shorts.push(...result.savedShorts);
         });
     }
 }
