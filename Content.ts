@@ -5,35 +5,41 @@ import {watchUrl, waitForElement, waitForBackgroundImage} from "./controllers/ob
 const savedShorts: ShortDetails[] = [];
 
 chrome.storage.local.get(["savedShorts"]).then((result) => {
-
-    console.log("SavedShorts[] Before: ", savedShorts)
-    console.log("Local Storage: ", result.savedShorts)
     savedShorts.push(...result.savedShorts);
-    console.log("SavedShorts[] After: ", savedShorts)
-
 });
 
 class Short {
     private shorts: ShortDetails[] = [];
 
     constructor() {
-
+        chrome.storage.local.get(["savedShorts"]).then((result) => {
+            this.shorts.push(...result.savedShorts);
+        });
 
     }
 
     add(short: ShortDetails) {
         const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === short.id);
-        if (index === -1) this.shorts.push(short);
-        console.log("Added to Class!")
-        console.log("Here is the class: ", this.shorts)
+        if (index === -1) {
+            this.shorts.push(short)
+            this.refreshArray()
+        }
     };
 
     remove(id: ShortDetails["id"]) {
         const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
-        if (index !== -1) this.shorts.splice(index, 1);
-        console.log("Removed From Class!")
-        console.log("Here is the class: ", this.shorts)
+        if (index !== -1) {
+            this.shorts.splice(index, 1);
+            this.refreshArray()
+        }
     };
+
+    private refreshArray() {
+        chrome.storage.local.set({savedShorts: this.shorts}).then((result) => {
+
+
+        });
+    }
 }
 
 const short = new Short();
