@@ -57,6 +57,7 @@ function setButtonAsSaved(short: Short, button: HTMLElement, span: HTMLElement) 
     button.setAttribute("saved-short", "true");
     span.innerHTML = inActiveSaveButtonSpan;
     button.style.backgroundColor = "black";
+    (button.querySelector("yt-touch-feedback-shape > svg > path") as SVGElement).setAttribute('fill', 'white')
 }
 
 // Render Buttons on First Load
@@ -109,6 +110,8 @@ waitForElement("#shorts-container").then((shortsContainer) => {
         const saveShortButton = e.target.closest(".save-short") as HTMLElement;
         if (!saveShortButton) return
 
+
+        const saveIconPath = (saveShortButton.querySelector("yt-touch-feedback-shape > svg > path") as SVGElement)
         const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
 
         // TODO Make Its Own Function ^^
@@ -128,6 +131,7 @@ waitForElement("#shorts-container").then((shortsContainer) => {
         saveShortButton.setAttribute("saved-short", `${!isSaved}`);
         saveShortButton.style.backgroundColor = isSaved ? "rgba(0, 0, 0, 0.05)" : "black";
         saveShortButtonTitle.innerHTML = isSaved ? activeSaveButtonSpan : inActiveSaveButtonSpan;
+        isSaved ? saveIconPath.setAttribute('fill', 'black') : saveIconPath.setAttribute('fill', 'white')
 
         isSaved ? short.remove(id) : short.add({title, creator, subscribed, id, date});
 
