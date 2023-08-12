@@ -53,51 +53,51 @@ class Short {
 
 const short = new Short();
 
+function setButtonAsSaved(short: Short, button: HTMLElement, span: HTMLElement) {
+    button.setAttribute("saved-short", "true");
+    span.innerHTML = inActiveSaveButtonSpan;
+    button.style.backgroundColor = "black";
+}
 
 // Render Buttons on First Load
-let initialLength: number;
-waitForElement("#like-button").then(() => {
+let initialLength = 0;
 
-    const commentsButtons = ($("#comments-button", true) as NodeList)
-    initialLength = commentsButtons.length;
-    console.log(initialLength);
-    commentsButtons.forEach(async (buttonContainer, index) => {
-        (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
+function onFirstLoad() {
+    waitForElement("#like-button").then(() => {
 
-        const saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
+        const commentsButtons = ($("#comments-button", true) as NodeList)
+        initialLength = commentsButtons.length;
 
-        if (index === 0) {
-            const id = window.location.href.split("/")[4]
-            if (short.exists(id)) {
+        commentsButtons.forEach(async (buttonContainer, index) => {
 
-                saveShortButton.setAttribute("saved-short", "true");
-                if (saveShortButton.nextElementSibling !== null) {
-                    saveShortButton.nextElementSibling.innerHTML = inActiveSaveButtonSpan;
-                }
-                saveShortButton.style.backgroundColor = "black";
+            console.log("On first load!");
+            // Add button
+            (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
+
+            const saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
+            const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
+            const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
+
+            // Set Button State
+            if (index === 0) {
+                const id = window.location.href.split("/")[4]
+                if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
             }
-        }
-        if (index) {
 
-            const myElement = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
+            if (index) {
+                waitForBackgroundImage(playerContainer, (backgroundImage) => {
+                    const id = backgroundImage.split("/")[4];
+                    if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
+                });
+            }
+
+        });
 
 
-            waitForBackgroundImage(myElement, (backgroundImage) => {
-                const id = backgroundImage.split("/")[4];
-                if (short.exists(id)) {
-                    saveShortButton.setAttribute("saved-short", "true");
-                    if (saveShortButton.nextElementSibling !== null) {
-                        saveShortButton.nextElementSibling.innerHTML = inActiveSaveButtonSpan;
-                    }
-                    saveShortButton.style.backgroundColor = "black";
-                }
-
-            });
-        }
     });
+}
 
-
-});
+onFirstLoad()
 
 
 // Add Click Event To Buttons
@@ -107,29 +107,29 @@ waitForElement("#shorts-container").then((shortsContainer) => {
     shortsContainer.addEventListener("click", function (e) {
 
         const saveShortButton = e.target.closest(".save-short") as HTMLElement;
+        if (!saveShortButton) return
+
         const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
 
         // TODO Make Its Own Function ^^
 
-        if (saveShortButton) {
-            //TODO Fix This
-            const shortDetails = (saveShortButton?.parentElement?.parentElement?.parentElement?.querySelector("#overlay") as HTMLElement).innerText.split("\n")
-            const title: string = shortDetails[0];
-            const creator: string = shortDetails[1];
-            const subscribed: boolean = shortDetails[2] === "Subscribed";
-            const id: string = window.location.href.split("/")[4];
-            const date = new Date();
 
-            const isSaved = saveShortButton.getAttribute("saved-short") === "true";
+        //TODO Fix This
+        const shortDetails = (saveShortButton?.parentElement?.parentElement?.parentElement?.querySelector("#overlay") as HTMLElement).innerText.split("\n")
+        const title: string = shortDetails[0];
+        const creator: string = shortDetails[1];
+        const subscribed: boolean = shortDetails[2] === "Subscribed";
+        const id: string = window.location.href.split("/")[4];
+        const date = new Date();
 
-            // Style Button
-            saveShortButton.setAttribute("saved-short", `${!isSaved}`);
-            saveShortButton.style.backgroundColor = isSaved ? "rgba(0, 0, 0, 0.05)" : "black";
-            saveShortButtonTitle.innerHTML = isSaved ? activeSaveButtonSpan : inActiveSaveButtonSpan;
+        const isSaved = saveShortButton.getAttribute("saved-short") === "true";
 
-            isSaved ? short.remove(id) : short.add({title, creator, subscribed, id, date});
+        // Style Button
+        saveShortButton.setAttribute("saved-short", `${!isSaved}`);
+        saveShortButton.style.backgroundColor = isSaved ? "rgba(0, 0, 0, 0.05)" : "black";
+        saveShortButtonTitle.innerHTML = isSaved ? activeSaveButtonSpan : inActiveSaveButtonSpan;
 
-        }
+        isSaved ? short.remove(id) : short.add({title, creator, subscribed, id, date});
 
 
     })
@@ -140,21 +140,34 @@ waitForElement("#shorts-container").then((shortsContainer) => {
 
 function onShortChange() {
 
+    if (location.href.split("/")[3] !== "shorts") return;
+
+    if (initialLength === 0) {
+        onFirstLoad();
+        return;
+    }
 
     // Watch Rendered Shorts Length
     const newLength = ($("#comments-button", true) as NodeList).length
-    if (initialLength === newLength) return;
+    console.log(initialLength, "Before")
+    if (initialLength === newLength && initialLength !== 0) return;
 
+    console.log(initialLength, "After")
 
     // Render New Save Shorts Button Elements
     Array.from(document.querySelectorAll("#comments-button")).slice(initialLength, newLength)
         .forEach((buttonContainer, index) => {
+
+            // Add Button
             (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup)
 
-            const myElement = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
-            waitForBackgroundImage(myElement, (backgroundImage) => {
-                console.log('Background image is now ready:', backgroundImage);
-                // Perform your action here with the backgroundImage
+            const saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
+            const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
+            const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
+
+            waitForBackgroundImage(playerContainer, (backgroundImage) => {
+                const id = backgroundImage.split("/")[4];
+                if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
             });
         })
 
@@ -168,9 +181,10 @@ watchUrl(() => {
     if (location.href.split("/")[3] !== "shorts") {
 
         console.log(location.href)
+        initialLength = 0;
 
     } else {
-        console.log("Good Good hh!")
+        console.log("Good Good hh!");
     }
 })
 

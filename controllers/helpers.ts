@@ -32,3 +32,4 @@ export function checkForId(array: ShortDetails[], id: string): boolean {
     const index = array.findIndex((obj: ShortDetails) => obj.id === id);
     return index !== -1;
 }
+
