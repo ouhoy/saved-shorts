@@ -2,11 +2,6 @@ import {htmlMarkup, inActiveSaveButtonSpan, activeSaveButtonSpan} from "./models
 import {$} from "./controllers/helpers";
 import {watchUrl, waitForElement, waitForBackgroundImage} from "./controllers/obsevers";
 
-const savedShorts: ShortDetails[] = [];
-
-chrome.storage.local.get(["savedShorts"]).then((result) => {
-    savedShorts.push(...result.savedShorts);
-});
 
 class Short {
     private shorts: ShortDetails[] = [];
@@ -19,10 +14,15 @@ class Short {
         if (this.exists(short.id)) return
         this.shorts.push(short)
         this.refresh()
-        console.log("Short added", this.shorts);
-
-
     };
+
+    read(id: ShortDetails["id"]): ShortDetails | boolean {
+
+        // If !id return this.shorts object as ShortDetails[]
+        const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
+        return this.exists(id) ? this.shorts[index] : false
+
+    }
 
     remove(id: ShortDetails["id"]) {
         const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
@@ -33,7 +33,7 @@ class Short {
         }
     }
 
-    exists(id: ShortDetails["id"]): boolean {
+    exists(id: ShortDetails["id"]): boolean | number {
         const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
         return index !== -1;
     }
@@ -128,19 +128,6 @@ waitForElement("#shorts-container").then((shortsContainer) => {
             saveShortButtonTitle.innerHTML = isSaved ? activeSaveButtonSpan : inActiveSaveButtonSpan;
 
             isSaved ? short.remove(id) : short.add({title, creator, subscribed, id, date});
-
-
-            // if (!isSaved) {
-            //     console.log("Adding!");
-            //     addUniqueObject(savedShorts, {title, creator, subscribed, id, date})
-            //
-            // }
-            // if (isSaved) {
-            //     console.log("Removing!");
-            //     //TODO Remove the URL from the array object
-            //     removeUniqueObject(savedShorts, id)
-            // }
-
 
         }
 
