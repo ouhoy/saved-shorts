@@ -183,36 +183,19 @@ function onShortChange() {
 
     if (location.href.split("/")[3] !== "shorts") return;
 
-    if (initialLength === 0) {
-        onFirstLoad();
-        return;
-    }
+    if (initialLength === 0) return onFirstLoad();
 
     // Watch Rendered Shorts Length
     const newLength = ($("#comments-button", true) as NodeList).length
-    console.log(initialLength, "Before")
+
     if (initialLength === newLength && initialLength !== 0) return;
 
-    console.log(initialLength, "After")
+    const commentsButtons = Array.from(document.querySelectorAll("#comments-button")).slice(initialLength, newLength)
 
     // Render New Save Shorts Button Elements
-    Array.from(document.querySelectorAll("#comments-button")).slice(initialLength, newLength)
-        .forEach((buttonContainer, index) => {
-
-
-            // insertSaveButton(buttonContainer, saveShortButton, index);
-            // Add Button
-            (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup)
-
-            const saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
-            const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
-            const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
-
-            waitForBackgroundImage(playerContainer, (backgroundImage) => {
-                const id = backgroundImage.split("/")[4];
-                if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
-            });
-        })
+    commentsButtons.forEach((buttonContainer, index) => {
+        insertSaveButton(buttonContainer, index);
+    })
 
     initialLength = newLength;
 
