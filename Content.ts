@@ -1,4 +1,4 @@
-import {htmlMarkup, inActiveSaveButtonSpan, activeSaveButtonSpan} from "./models/elements";
+import {htmlMarkup} from "./models/elements";
 import {$} from "./controllers/helpers";
 import {watchUrl, waitForElement, waitForBackgroundImage} from "./controllers/obsevers";
 
@@ -53,12 +53,11 @@ class Short {
 
 const short = new Short();
 
-function setButtonAsSaved(short: Short, button: HTMLElement, span: HTMLElement) {
+function setButtonAsSaved(short: Short, button: HTMLElement) {
 
     const saveIconPath = (button.querySelector("yt-touch-feedback-shape > svg > path") as SVGElement)
 
     button.setAttribute("saved-short", "true");
-    span.innerHTML = inActiveSaveButtonSpan;
     button.style.backgroundColor = "black";
     saveIconPath.setAttribute('fill', 'white')
 }
@@ -69,23 +68,30 @@ function insertSaveButton(buttonContainer: Node, index: number) {
     (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
 
     const saveBtn = document.querySelectorAll("#like-button > button")[index] as HTMLElement
-    const saveShortButtonTitle = (saveBtn.nextElementSibling as HTMLElement)
     const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
-
 
     // Set Button State
     if (index === 0) {
         const id = window.location.href.split("/")[4]
-        if (short.exists(id)) setButtonAsSaved(short, saveBtn, saveShortButtonTitle);
+        if (short.exists(id)) setButtonAsSaved(short, saveBtn);
     }
 
     if (index) {
         waitForBackgroundImage(playerContainer, (backgroundImage) => {
             const id = backgroundImage.split("/")[4];
-            if (short.exists(id)) setButtonAsSaved(short, saveBtn, saveShortButtonTitle);
+            if (short.exists(id)) setButtonAsSaved(short, saveBtn);
         });
     }
 
+}
+
+function handleButtonClick(button: HTMLElement, icon: SVGElement, isSaved: boolean) {
+
+    const iconPath = icon.querySelector("path")
+    // Style Button
+    button.setAttribute("saved-short", `${!isSaved}`);
+    button.style.backgroundColor = isSaved ? "rgba(0, 0, 0, 0.05)" : "black";
+    iconPath?.setAttribute('fill', `${isSaved ? "black" : "white"}`);
 }
 
 // Render Buttons on First Load
@@ -106,29 +112,6 @@ function onFirstLoad() {
 
             insertSaveButton(buttonContainer, index);
 
-            // // Add button
-            // (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
-            //
-            // saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
-            //
-            // const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
-            // const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
-            //
-            //
-            // // Set Button State
-            // if (index === 0) {
-            //     const id = window.location.href.split("/")[4]
-            //     if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
-            // }
-            //
-            // if (index) {
-            //     waitForBackgroundImage(playerContainer, (backgroundImage) => {
-            //         const id = backgroundImage.split("/")[4];
-            //         if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
-            //     });
-            // }
-
-
         });
 
 
@@ -147,11 +130,10 @@ waitForElement("#shorts-container").then((shortsContainer) => {
         const saveShortButton = e.target.closest(".save-short") as HTMLElement;
         if (!saveShortButton) return
 
+        const saveIcon = (saveShortButton.querySelector("yt-touch-feedback-shape > svg") as SVGElement)
 
-        const saveIconPath = (saveShortButton.querySelector("yt-touch-feedback-shape > svg > path") as SVGElement)
-        const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
-
-        // TODO Make Its Own Function ^^
+        const isSaved = saveShortButton.getAttribute("saved-short") === "true";
+        handleButtonClick(saveShortButton, saveIcon, isSaved)
 
 
         //TODO Fix This
@@ -162,14 +144,6 @@ waitForElement("#shorts-container").then((shortsContainer) => {
         const id: string = window.location.href.split("/")[4];
         const date = new Date();
 
-        const isSaved = saveShortButton.getAttribute("saved-short") === "true";
-
-        // Style Button
-        saveShortButton.setAttribute("saved-short", `${!isSaved}`);
-        saveShortButton.style.backgroundColor = isSaved ? "rgba(0, 0, 0, 0.05)" : "black";
-        saveShortButtonTitle.innerHTML = isSaved ? activeSaveButtonSpan : inActiveSaveButtonSpan;
-        saveIconPath.setAttribute('fill', `${isSaved ? "black" : "white"}`);
-
         isSaved ? short.remove(id) : short.add({title, creator, subscribed, id, date});
 
 
@@ -177,7 +151,6 @@ waitForElement("#shorts-container").then((shortsContainer) => {
 
 
 });
-
 
 function onShortChange() {
 

@@ -10,8 +10,6 @@ margin-top: 8px;
 <div class="save-short yt-spec-button-shape-with-label__label"><span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap yt-core-attributed-string--text-alignment-center yt-core-attributed-string--word-wrapping" role="text">Save</span></div>
 `;
 
-export const inActiveSaveButtonSpan = `<span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap yt-core-attributed-string--text-alignment-center yt-core-attributed-string--word-wrapping" role="text">Saved</span>`;
-export const activeSaveButtonSpan = inActiveSaveButtonSpan.replace("Saved", "Save");
 
 export const htmlMarkup = `
 <button style="margin-top: 8px;" class="yt-spec-button-shape-next save-short yt-spec-button-shape-next--tonal yt-spec-button-shape-next--mono yt-spec-button-shape-next--size-l yt-spec-button-shape-next--icon-button " saved-short="false" aria-pressed="false" aria-label="Save this video">
