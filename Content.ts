@@ -63,11 +63,12 @@ function setButtonAsSaved(short: Short, button: HTMLElement, span: HTMLElement) 
     saveIconPath.setAttribute('fill', 'white')
 }
 
-function insertSaveButton(buttonContainer: Node, saveBtn: HTMLElement, index: number) {
+function insertSaveButton(buttonContainer: Node, index: number) {
 
     // Add button
     (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
 
+    const saveBtn = document.querySelectorAll("#like-button > button")[index] as HTMLElement
     const saveShortButtonTitle = (saveBtn.nextElementSibling as HTMLElement)
     const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
 
@@ -103,27 +104,29 @@ function onFirstLoad() {
 
             if (saveShortButton) return;
 
-            // Add button
-            (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
+            insertSaveButton(buttonContainer, index);
 
-            saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
-
-            const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
-            const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
-
-
-            // Set Button State
-            if (index === 0) {
-                const id = window.location.href.split("/")[4]
-                if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
-            }
-
-            if (index) {
-                waitForBackgroundImage(playerContainer, (backgroundImage) => {
-                    const id = backgroundImage.split("/")[4];
-                    if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
-                });
-            }
+            // // Add button
+            // (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
+            //
+            // saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
+            //
+            // const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
+            // const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
+            //
+            //
+            // // Set Button State
+            // if (index === 0) {
+            //     const id = window.location.href.split("/")[4]
+            //     if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
+            // }
+            //
+            // if (index) {
+            //     waitForBackgroundImage(playerContainer, (backgroundImage) => {
+            //         const id = backgroundImage.split("/")[4];
+            //         if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
+            //     });
+            // }
 
 
         });
