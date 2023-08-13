@@ -54,10 +54,37 @@ class Short {
 const short = new Short();
 
 function setButtonAsSaved(short: Short, button: HTMLElement, span: HTMLElement) {
+
+    const saveIconPath = (button.querySelector("yt-touch-feedback-shape > svg > path") as SVGElement)
+
     button.setAttribute("saved-short", "true");
     span.innerHTML = inActiveSaveButtonSpan;
     button.style.backgroundColor = "black";
-    (button.querySelector("yt-touch-feedback-shape > svg > path") as SVGElement).setAttribute('fill', 'white')
+    saveIconPath.setAttribute('fill', 'white')
+}
+
+function insertSaveButton(buttonContainer: Node, saveBtn: HTMLElement, index: number) {
+
+    // Add button
+    (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
+
+    const saveShortButtonTitle = (saveBtn.nextElementSibling as HTMLElement)
+    const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
+
+
+    // Set Button State
+    if (index === 0) {
+        const id = window.location.href.split("/")[4]
+        if (short.exists(id)) setButtonAsSaved(short, saveBtn, saveShortButtonTitle);
+    }
+
+    if (index) {
+        waitForBackgroundImage(playerContainer, (backgroundImage) => {
+            const id = backgroundImage.split("/")[4];
+            if (short.exists(id)) setButtonAsSaved(short, saveBtn, saveShortButtonTitle);
+        });
+    }
+
 }
 
 // Render Buttons on First Load
@@ -71,13 +98,19 @@ function onFirstLoad() {
 
         commentsButtons.forEach(async (buttonContainer, index) => {
 
-            console.log("On first load!");
+
+            let saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
+
+            if (saveShortButton) return;
+
             // Add button
             (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
 
-            const saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
+            saveShortButton = document.querySelectorAll("#like-button > button")[index] as HTMLElement
+
             const saveShortButtonTitle = (saveShortButton.nextElementSibling as HTMLElement)
             const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
+
 
             // Set Button State
             if (index === 0) {
@@ -91,6 +124,7 @@ function onFirstLoad() {
                     if (short.exists(id)) setButtonAsSaved(short, saveShortButton, saveShortButtonTitle);
                 });
             }
+
 
         });
 
@@ -131,7 +165,7 @@ waitForElement("#shorts-container").then((shortsContainer) => {
         saveShortButton.setAttribute("saved-short", `${!isSaved}`);
         saveShortButton.style.backgroundColor = isSaved ? "rgba(0, 0, 0, 0.05)" : "black";
         saveShortButtonTitle.innerHTML = isSaved ? activeSaveButtonSpan : inActiveSaveButtonSpan;
-        isSaved ? saveIconPath.setAttribute('fill', 'black') : saveIconPath.setAttribute('fill', 'white')
+        saveIconPath.setAttribute('fill', `${isSaved ? "black" : "white"}`);
 
         isSaved ? short.remove(id) : short.add({title, creator, subscribed, id, date});
 
@@ -162,6 +196,8 @@ function onShortChange() {
     Array.from(document.querySelectorAll("#comments-button")).slice(initialLength, newLength)
         .forEach((buttonContainer, index) => {
 
+
+            // insertSaveButton(buttonContainer, saveShortButton, index);
             // Add Button
             (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup)
 
