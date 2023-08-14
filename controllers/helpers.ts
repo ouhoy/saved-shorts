@@ -1,5 +1,5 @@
 import {htmlMarkup} from "../models/elements";
-import {waitForBackgroundImage} from "./obsevers";
+import {waitForBackgroundImage, waitForElement} from "./obsevers";
 import {Short, short} from "../Content";
 
 export function $(id: string, selectAll: boolean = false) {
@@ -55,4 +55,28 @@ export function handleSave([title, creator, subscribed]: string[], isSaved: bool
     const date = new Date();
     isSaved ? short.remove(id) : short.add({title, creator, subscribed: subscribed === "Subscribed", id, date});
 
+}
+
+export function addClickEventToButtons() {
+    waitForElement("#shorts-container").then((shortsContainer) => {
+
+
+        (shortsContainer as HTMLElement).addEventListener("click", function (e: MouseEvent) {
+
+            const saveShortButton = (e.target as HTMLElement).closest(".save-short") as HTMLElement;
+            if (!saveShortButton) return
+
+            const saveIcon = (saveShortButton.querySelector("yt-touch-feedback-shape > svg") as SVGElement)
+
+            const isSaved = saveShortButton.getAttribute("saved-short") === "true";
+            handleButtonClick(saveShortButton, saveIcon, isSaved)
+
+            //TODO Fix This
+            const shortDetails = (saveShortButton?.parentElement?.parentElement?.parentElement?.querySelector("#overlay") as HTMLElement).innerText.split("\n");
+            handleSave(shortDetails, isSaved)
+
+        })
+
+
+    });
 }

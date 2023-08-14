@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5dff6185-6a85-4f01-a09a-ae4ad59b6341" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/views/helpers.views.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Content.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/content.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/helpers.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -107,7 +107,7 @@
       <workItem from="1691270587957" duration="656000" />
       <workItem from="1691791192501" duration="13585000" />
       <workItem from="1691846811636" duration="20658000" />
-      <workItem from="1691932051953" duration="14145000" />
+      <workItem from="1691932051953" duration="16482000" />
     </task>
     <servers />
   </component>
@@ -126,6 +126,8 @@
         <option value="$PROJECT_DIR$/controllers/obsevers.js" />
         <option value="$PROJECT_DIR$/models/urls.js.map" />
         <option value="$PROJECT_DIR$/models/urls.js" />
+        <option value="$PROJECT_DIR$/views/helpers.views.js" />
+        <option value="$PROJECT_DIR$/views/helpers.views.js.map" />
       </list>
     </option>
   </component>

@@ -1,4 +1,4 @@
-import {$, handleButtonClick, insertSaveButton, handleSave} from "./controllers/helpers";
+import {$, insertSaveButton, addClickEventToButtons} from "./controllers/helpers";
 import {watchUrl, waitForElement} from "./controllers/obsevers";
 
 
@@ -52,7 +52,6 @@ export class Short {
 
 export const short = new Short();
 
-
 // Render Buttons on First Load
 let initialLength = 0;
 
@@ -77,31 +76,10 @@ function onFirstLoad() {
     });
 }
 
+
 onFirstLoad()
 
-
-// Add Click Event To Buttons
-waitForElement("#shorts-container").then((shortsContainer) => {
-
-    // @ts-ignore
-    shortsContainer.addEventListener("click", function (e) {
-
-        const saveShortButton = e.target.closest(".save-short") as HTMLElement;
-        if (!saveShortButton) return
-
-        const saveIcon = (saveShortButton.querySelector("yt-touch-feedback-shape > svg") as SVGElement)
-
-        const isSaved = saveShortButton.getAttribute("saved-short") === "true";
-        handleButtonClick(saveShortButton, saveIcon, isSaved)
-
-        //TODO Fix This
-        const shortDetails = (saveShortButton?.parentElement?.parentElement?.parentElement?.querySelector("#overlay") as HTMLElement).innerText.split("\n");
-        handleSave(shortDetails, isSaved)
-
-    })
-
-
-});
+addClickEventToButtons();
 
 function onShortChange() {
 
