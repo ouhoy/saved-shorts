@@ -1,9 +1,8 @@
-import {htmlMarkup} from "./models/elements";
-import {$} from "./controllers/helpers";
-import {watchUrl, waitForElement, waitForBackgroundImage} from "./controllers/obsevers";
+import {$, handleButtonClick, insertSaveButton, handleSave} from "./controllers/helpers";
+import {watchUrl, waitForElement} from "./controllers/obsevers";
 
 
-class Short {
+export class Short {
     private shorts: ShortDetails[] = [];
 
     constructor() {
@@ -51,57 +50,8 @@ class Short {
     }
 }
 
-const short = new Short();
+export const short = new Short();
 
-function setButtonAsSaved(short: Short, button: HTMLElement) {
-
-    const saveIconPath = (button.querySelector("yt-touch-feedback-shape > svg > path") as SVGElement)
-
-    button.setAttribute("saved-short", "true");
-    button.style.backgroundColor = "black";
-    saveIconPath.setAttribute('fill', 'white')
-}
-
-function insertSaveButton(buttonContainer: Node, index: number) {
-
-    // Add button
-    (buttonContainer as HTMLElement).parentNode?.children[2].insertAdjacentHTML("beforeend", htmlMarkup);
-
-    const saveBtn = document.querySelectorAll("#like-button > button")[index] as HTMLElement
-    const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
-
-    // Set Button State
-    if (index === 0) {
-        const id = window.location.href.split("/")[4]
-        if (short.exists(id)) setButtonAsSaved(short, saveBtn);
-    }
-
-    if (index) {
-        waitForBackgroundImage(playerContainer, (backgroundImage) => {
-            const id = backgroundImage.split("/")[4];
-            if (short.exists(id)) setButtonAsSaved(short, saveBtn);
-        });
-    }
-
-}
-
-function handleButtonClick(button: HTMLElement, icon: SVGElement, isSaved: boolean) {
-
-    const iconPath = icon.querySelector("path")
-    // Style Button
-    button.setAttribute("saved-short", `${!isSaved}`);
-    button.style.backgroundColor = isSaved ? "rgba(0, 0, 0, 0.05)" : "black";
-    iconPath?.setAttribute('fill', `${isSaved ? "black" : "white"}`);
-}
-
-function handleSave([title, creator, subscribed]: string[], isSaved: boolean) {
-
-
-    const id: string = window.location.href.split("/")[4];
-    const date = new Date();
-    isSaved ? short.remove(id) : short.add({title, creator, subscribed: subscribed === "Subscribed", id, date});
-
-}
 
 // Render Buttons on First Load
 let initialLength = 0;
