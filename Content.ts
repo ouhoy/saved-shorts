@@ -94,6 +94,15 @@ function handleButtonClick(button: HTMLElement, icon: SVGElement, isSaved: boole
     iconPath?.setAttribute('fill', `${isSaved ? "black" : "white"}`);
 }
 
+function handleSave([title, creator, subscribed]: string[], isSaved: boolean) {
+
+
+    const id: string = window.location.href.split("/")[4];
+    const date = new Date();
+    isSaved ? short.remove(id) : short.add({title, creator, subscribed: subscribed === "Subscribed", id, date});
+
+}
+
 // Render Buttons on First Load
 let initialLength = 0;
 
@@ -135,17 +144,9 @@ waitForElement("#shorts-container").then((shortsContainer) => {
         const isSaved = saveShortButton.getAttribute("saved-short") === "true";
         handleButtonClick(saveShortButton, saveIcon, isSaved)
 
-
         //TODO Fix This
-        const shortDetails = (saveShortButton?.parentElement?.parentElement?.parentElement?.querySelector("#overlay") as HTMLElement).innerText.split("\n")
-        const title: string = shortDetails[0];
-        const creator: string = shortDetails[1];
-        const subscribed: boolean = shortDetails[2] === "Subscribed";
-        const id: string = window.location.href.split("/")[4];
-        const date = new Date();
-
-        isSaved ? short.remove(id) : short.add({title, creator, subscribed, id, date});
-
+        const shortDetails = (saveShortButton?.parentElement?.parentElement?.parentElement?.querySelector("#overlay") as HTMLElement).innerText.split("\n");
+        handleSave(shortDetails, isSaved)
 
     })
 
