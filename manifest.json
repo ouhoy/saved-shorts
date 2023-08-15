@@ -4,6 +4,7 @@
   "permissions": [
     "storage"
   ],
+  "options_page":  "./public/options.html",
   "background": {
     "type": "module"
   },
