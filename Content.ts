@@ -44,6 +44,7 @@ export class Short {
     }
 
     private fillShortsArray() {
+        chrome.storage.local.set({savedShorts: this.shorts}).then(() => {});
         chrome.storage.local.get(["savedShorts"]).then((result) => {
             this.shorts.push(...result.savedShorts);
         });
