@@ -24,6 +24,7 @@ export function insertSaveButton(buttonContainer: Node, index: number) {
     const saveBtn = document.querySelectorAll("#like-button > button")[index] as HTMLElement
     const playerContainer = document.querySelector(`[id='${index}']> #player-container`) as HTMLElement
 
+    console.log(playerContainer)
     // Set Button State
     if (index === 0) {
         const id = window.location.href.split("/")[4]

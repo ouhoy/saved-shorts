@@ -33,7 +33,14 @@ export class Short {
     }
 
     exists(id: ShortDetails["id"]): boolean | number {
-        const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
+        const index = this.shorts.findIndex((obj: ShortDetails) => {
+            console.log(obj.id, id)
+
+            return obj.id === id
+        });
+        console.log(id, index)
+        console.log(index !== -1)
+
         return index !== -1;
     }
 
