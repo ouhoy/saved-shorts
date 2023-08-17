@@ -6,7 +6,9 @@ export class Short {
     private shorts: ShortDetails[] = [];
 
     constructor() {
-        this.fillShortsArray();
+         if (!this.shorts.length) {
+            this.fillShortsArray();
+        }
     }
 
     add(short: ShortDetails) {
@@ -32,12 +34,17 @@ export class Short {
         }
     }
 
-    exists(id: ShortDetails["id"]): boolean | number {
+     exists  (id: ShortDetails["id"]): boolean | number {
+        if (!this.shorts.length) {
+            this.fillShortsArray();
+        }
+        console.log("Before: ", this.shorts)
         const index = this.shorts.findIndex((obj: ShortDetails) => {
             console.log(obj.id, id)
 
             return obj.id === id
         });
+        console.log("After: ", this.shorts)
         console.log(id, index)
         console.log(index !== -1)
 
@@ -56,6 +63,8 @@ export class Short {
             });
 
         }
+                chrome.storage.local.set({savedShorts: []}).then(() => {
+            });
         chrome.storage.local.get(["savedShorts"]).then((result) => {
             this.shorts.push(...result.savedShorts);
         });
