@@ -1,0 +1,12 @@
+.shorts {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+
+  iframe {
+    border-radius: 16px;
+    margin: 16px;
+
+  }
+}
