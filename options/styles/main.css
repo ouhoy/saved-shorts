@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
+  gap: 16px;
 }
 .shorts iframe {
   border-radius: 16px;

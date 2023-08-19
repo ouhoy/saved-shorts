@@ -63,8 +63,7 @@ export class Short {
             });
 
         }
-                chrome.storage.local.set({savedShorts: []}).then(() => {
-            });
+      
         chrome.storage.local.get(["savedShorts"]).then((result) => {
             this.shorts.push(...result.savedShorts);
         });

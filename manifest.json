@@ -8,6 +8,10 @@
   "background": {
     "type": "module"
   },
+   "icons": {
+
+    "128": "./public/assets/icons/icon128.png"
+  },
   "version": "1.0.0",
   "content_scripts": [
     {

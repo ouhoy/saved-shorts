@@ -1,6 +1,12 @@
-iframe {
+.shorts {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 16px;
+}
+.shorts iframe {
   border-radius: 16px;
-  margin: 16px;
 }
 
 /*# sourceMappingURL=main.css.map */
