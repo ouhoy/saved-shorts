@@ -5,22 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5dff6185-6a85-4f01-a09a-ae4ad59b6341" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/icon128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/icon16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/icon32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/icon48.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Content.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/options/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/options/styles/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options/styles/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/options/styles/main.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options/styles/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/options/styles/main.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/options.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/options.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/options.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/styles/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles/main.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/styles/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles/main.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +118,7 @@
       <workItem from="1691932051953" duration="16482000" />
       <workItem from="1692303521766" duration="6715000" />
       <workItem from="1692441051545" duration="3541000" />
-      <workItem from="1692457777158" duration="1648000" />
+      <workItem from="1692457777158" duration="5687000" />
     </task>
     <servers />
   </component>
