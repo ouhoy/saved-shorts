@@ -6,9 +6,10 @@ export class Short {
     private shorts: ShortDetails[] = [];
 
     constructor() {
-         if (!this.shorts.length) {
+        if (!this.shorts.length) {
             this.fillShortsArray();
         }
+
     }
 
     add(short: ShortDetails) {
@@ -17,11 +18,17 @@ export class Short {
         this.refresh()
     };
 
-    read(id: ShortDetails["id"]): ShortDetails | boolean {
-
-        // If !id return this.shorts object as ShortDetails[]
-        const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
-        return this.exists(id) ? this.shorts[index] : false
+    // read(id: ShortDetails["id"]): ShortDetails | boolean {
+    //
+    //     // If !id return this.shorts object as ShortDetails[]
+    //     const index = this.shorts.findIndex((obj: ShortDetails) => obj.id === id);
+    //     return this.exists(id) ? this.shorts[index] : false
+    //
+    // }
+    //
+    read() {
+        console.log(this.shorts)
+        return this.shorts
 
     }
 
@@ -34,19 +41,16 @@ export class Short {
         }
     }
 
-     exists  (id: ShortDetails["id"]): boolean | number {
+    exists(id: ShortDetails["id"]): boolean | number {
         if (!this.shorts.length) {
-            this.fillShortsArray();
+            this.fillShortsArray().then();
         }
-        console.log("Before: ", this.shorts)
+
         const index = this.shorts.findIndex((obj: ShortDetails) => {
-            console.log(obj.id, id)
 
             return obj.id === id
         });
-        console.log("After: ", this.shorts)
-        console.log(id, index)
-        console.log(index !== -1)
+
 
         return index !== -1;
     }
@@ -57,16 +61,16 @@ export class Short {
         });
     }
 
-    private fillShortsArray() {
-        if (!chrome.storage.local.get(["savedShorts"])) {
-            chrome.storage.local.set({savedShorts: this.shorts}).then(() => {
+    private async fillShortsArray() {
+        if (!await chrome.storage.local.get(["savedShorts"])) {
+            await chrome.storage.local.set({savedShorts: this.shorts}).then(() => {
             });
-
+            return
         }
-      
-        chrome.storage.local.get(["savedShorts"]).then((result) => {
-            this.shorts.push(...result.savedShorts);
+
+        await chrome.storage.local.get(["savedShorts"]).then((result) => {this.shorts.push(...result.savedShorts);
         });
+        return;
     }
 }
 
@@ -132,6 +136,7 @@ watchUrl(() => {
         initialLength = 0;
 
     } else {
+        onFirstLoad()
         console.log("Good Good hh!");
     }
 })

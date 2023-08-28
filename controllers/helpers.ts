@@ -28,7 +28,17 @@ export function insertSaveButton(buttonContainer: Node, index: number) {
     // Set Button State
     if (index === 0) {
         const id = window.location.href.split("/")[4]
-        if (short.exists(id)) setButtonAsSaved(short, saveBtn);
+        if (short.exists(id)) {
+            setButtonAsSaved(short, saveBtn);
+            short.read()
+            console.log("It does exist!!")
+        } else {
+            const lengthArr = `This is it ${short.read().length}`;
+            console.log(lengthArr)
+            console.log(short.exists(id))
+            short.read()
+            console.log("It does not exist? ")
+        }
     }
 
     if (index) {
