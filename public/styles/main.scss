@@ -13,13 +13,26 @@ body {
 
 }
 
+
+.container {
+  max-width: 1174px;
+  margin: 0 auto;
+  .saved-shorts-number {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 24px 0;
+    padding-left: 8px;
+  }
+}
+
 .shorts {
   margin: 0 auto 72px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 24px;
-  max-width: 1280px;
+
 
   .short-container {
 
@@ -43,8 +56,7 @@ body {
         width: 100%;
         bottom: 0;
         border-radius: 0 0 24px 24px;
-        padding-left: 24px;
-        padding-bottom: 24px;
+        padding: 16px 16px 24px;
       }
 
       .short-info {

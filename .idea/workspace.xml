@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5dff6185-6a85-4f01-a09a-ae4ad59b6341" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/yt-user.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/options.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/options.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/options.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/styles/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles/main.css.map" afterDir="false" />
@@ -125,7 +123,7 @@
       <workItem from="1692441051545" duration="3541000" />
       <workItem from="1692457777158" duration="6932000" />
       <workItem from="1693262993385" duration="5573000" />
-      <workItem from="1693776178909" duration="6713000" />
+      <workItem from="1693776178909" duration="8238000" />
     </task>
     <servers />
   </component>

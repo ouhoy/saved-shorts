@@ -6,8 +6,8 @@ const resetButton = $(".reset") as HTMLElement;
 
 
 chrome.storage.local.get(["savedShorts"]).then((result) => {
-
-
+    const numberOfShorts = result.savedShorts.length;
+    ($("nav") as HTMLElement).insertAdjacentHTML("afterend", `<p class="saved-shorts-number">${numberOfShorts >= 1 ? numberOfShorts : ""} ${numberOfShorts > 1 ? "Shorts" : numberOfShorts === 1 ? "Short" : "No shorts were saved yet"}</p>`);
     result.savedShorts.forEach((short: ShortDetails) => {
 
         const shortHTML = `<div class="short-container" title="${short.title}"><div class="short" style="background-image:url(https://i.ytimg.com/vi/${short.id}/frame0.jpg);" >
@@ -16,7 +16,7 @@ chrome.storage.local.get(["savedShorts"]).then((result) => {
             <div class="title"><p class="short-title">${short.title}</p></div>
             <div class="about-creator">
                 <div class="creator-avatar">
-                <img src="./assets/icons/yt-user.png" alt="${short.creator}"/>
+                <img style="display: none" src="./assets/icons/yt-user.png" alt="${short.creator}"/>
                 </div>
                 <div class="creator-name"><p>${short.creator}</p></div>
             </div>
@@ -24,6 +24,7 @@ chrome.storage.local.get(["savedShorts"]).then((result) => {
         </div>
       
 </div></div>`;
+
 
         ($(".shorts") as HTMLElement).insertAdjacentHTML("beforeend", shortHTML)
     })
