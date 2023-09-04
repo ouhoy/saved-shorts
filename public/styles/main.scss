@@ -17,6 +17,7 @@ body {
 .container {
   max-width: 1174px;
   margin: 0 auto;
+
   .saved-shorts-number {
     font-family: "Inter", sans-serif;
     font-size: 14px;
@@ -43,12 +44,44 @@ body {
       border-radius: 24px;
       position: relative;
       background-size: cover;
+      transition: all 1s ease-in-out;
+
+      &:hover .short-links {
+        opacity: 1 !important;
+      }
 
       p {
         font-family: "Inter", sans-serif;
         font-weight: 500;
         color: white;
       }
+
+      .short-links-container {
+        background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent);
+        position: absolute;
+        width: 100%;
+        top: 0;
+        border-radius: 24px 24px 0 0;
+        padding: 24px 8px 16px;
+
+        .short-links {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 8px;
+          opacity: 0;
+          transition: all .2s ease-in-out;
+
+          img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+          }
+
+
+        }
+      }
+
 
       .short-info-container {
         background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), transparent);
@@ -66,6 +99,7 @@ body {
 
         .short-title {
           font-size: 14px;
+          line-height: 24px;
         }
 
         .about-creator {
@@ -73,6 +107,12 @@ body {
           align-items: center;
           justify-content: flex-start;
           gap: 8px;
+
+          .creator-name {
+            a {
+              text-decoration: none;
+            }
+          }
 
           img {
             width: 40px;
@@ -94,6 +134,7 @@ nav {
 
 
 }
+
 
 .search-bar-container {
   display: flex;

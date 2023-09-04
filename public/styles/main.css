@@ -33,11 +33,36 @@ body {
   border-radius: 24px;
   position: relative;
   background-size: cover;
+  transition: all 1s ease-in-out;
+}
+.shorts .short-container .short:hover .short-links {
+  opacity: 1 !important;
 }
 .shorts .short-container .short p {
   font-family: "Inter", sans-serif;
   font-weight: 500;
   color: white;
+}
+.shorts .short-container .short .short-links-container {
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent);
+  position: absolute;
+  width: 100%;
+  top: 0;
+  border-radius: 24px 24px 0 0;
+  padding: 24px 8px 16px;
+}
+.shorts .short-container .short .short-links-container .short-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+.shorts .short-container .short .short-links-container .short-links img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 .shorts .short-container .short .short-info-container {
   background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), transparent);
@@ -54,12 +79,16 @@ body {
 }
 .shorts .short-container .short .short-info .short-title {
   font-size: 14px;
+  line-height: 24px;
 }
 .shorts .short-container .short .short-info .about-creator {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
+}
+.shorts .short-container .short .short-info .about-creator .creator-name a {
+  text-decoration: none;
 }
 .shorts .short-container .short .short-info .about-creator img {
   width: 40px;
