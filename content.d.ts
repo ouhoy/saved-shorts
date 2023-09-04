@@ -1,6 +1,7 @@
 declare interface ShortDetails {
     title: string,
     creator: string,
+    avatar: string,
     id: string,
     subscribed: boolean,
     date: Date

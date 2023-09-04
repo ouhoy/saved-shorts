@@ -111,12 +111,17 @@ body {
           .creator-name {
             a {
               text-decoration: none;
+
+              p {
+                font-size: 13px;
+              }
             }
           }
 
           img {
             width: 40px;
             height: 40px;
+            border-radius: 32px;
           }
         }
       }

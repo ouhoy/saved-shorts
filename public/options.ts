@@ -26,7 +26,7 @@ chrome.storage.local.get(["savedShorts"]).then((result) => {
             <div class="title"> <a title="Play the video in a new tab." target="_blank" href="https://www.youtube.com/shorts/${short.id}"><p class="short-title">${short.title}</p></a></div>
             <div class="about-creator">
                 <div class="creator-avatar">
-                <img style="display: none" src="./assets/icons/yt-user.png" alt="${short.creator}"/>
+                <img src="${short.avatar}" alt="${short.creator}"/>
                 </div>
                 <div class="creator-name"><a target="_blank" href="https://www.youtube.com/${short.creator}"><p>${short.creator}</p></a></div>
             </div>

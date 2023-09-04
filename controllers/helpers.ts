@@ -59,12 +59,12 @@ export function handleButtonClick(button: HTMLElement, icon: SVGElement, isSaved
     iconPath?.setAttribute('fill', `${isSaved ? "black" : "white"}`);
 }
 
-export function handleSave([title, creator, subscribed]: string[], isSaved: boolean) {
+export function handleSave([title, creator, subscribed, avatar]: string[], isSaved: boolean) {
 
 
     const id: string = window.location.href.split("/")[4];
     const date = new Date();
-    isSaved ? short.remove(id) : short.add({title, creator, subscribed: subscribed === "Subscribed", id, date});
+    isSaved ? short.remove(id) : short.add({title, creator, subscribed: subscribed === "Subscribed", id, date, avatar});
 
 }
 
@@ -83,7 +83,12 @@ export function addClickEventToButtons() {
             handleButtonClick(saveShortButton, saveIcon, isSaved)
 
             //TODO Fix This
-            const shortDetails = (saveShortButton?.parentElement?.parentElement?.parentElement?.querySelector("#overlay") as HTMLElement).innerText.split("\n");
+            const shortDetailsHTML = (saveShortButton?.parentElement?.parentElement?.parentElement?.querySelector("#overlay") as HTMLElement)
+            console.log((shortDetailsHTML.querySelector("img")?.src));
+            const shortDetails = [...shortDetailsHTML.innerText.split("\n"), `${(shortDetailsHTML.querySelector("img")?.src)}`];
+
+
+            console.log(shortDetails)
             handleSave(shortDetails, isSaved)
 
         })
