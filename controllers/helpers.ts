@@ -88,7 +88,6 @@ export function addClickEventToButtons() {
             const shortDetails = [...shortDetailsHTML.innerText.split("\n"), `${(shortDetailsHTML.querySelector("img")?.src)}`];
 
 
-            console.log(shortDetails)
             handleSave(shortDetails, isSaved)
 
         })

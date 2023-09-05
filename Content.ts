@@ -14,7 +14,7 @@ export class Short {
 
     add(short: ShortDetails) {
         if (this.exists(short.id)) return
-        this.shorts.push(short)
+        this.shorts.unshift(short)
         this.refresh()
     };
 
