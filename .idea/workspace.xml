@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5dff6185-6a85-4f01-a09a-ae4ad59b6341" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/public/src/getAverageColor.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/options.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/styles/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles/main.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/styles/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles/main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/helpers.views.ts" beforeDir="false" afterPath="$PROJECT_DIR$/views/helpers.views.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +22,9 @@
       <list>
         <option value="JavaScript File" />
         <option value="tsconfig.json" />
-        <option value="TypeScript File" />
         <option value="SCSS File" />
         <option value="HTML File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -48,32 +52,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.14.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.14.0&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/abdel/Desktop/DEV/saved-shorts/public/assets/icons&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.typescriptcompiler&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\abdel\\AppData\\Local\\JetBrains\\Toolbox\\apps\\WebStorm\\ch-0\\231.9225.18\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "javascript.nodejs.core.library.configured.version": "18.14.0",
+    "javascript.nodejs.core.library.typings.version": "18.14.0",
+    "last_opened_file_path": "C:/Users/abdel/Desktop/DEV/saved-shorts/controllers",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.typescriptcompiler",
+    "ts.external.directory.path": "C:\\Users\\abdel\\AppData\\Local\\JetBrains\\Toolbox\\apps\\WebStorm\\ch-0\\231.9225.18\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\abdel\Desktop\DEV\saved-shorts\controllers" />
       <recent name="C:\Users\abdel\Desktop\DEV\saved-shorts\public\assets\icons" />
       <recent name="C:\Users\abdel\Desktop\DEV\saved-shorts\public" />
       <recent name="C:\Users\abdel\Desktop\DEV\saved-shorts\options" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\abdel\Desktop\DEV\saved-shorts\public\src" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Start">
@@ -121,7 +129,7 @@
       <workItem from="1692457777158" duration="6932000" />
       <workItem from="1693262993385" duration="5573000" />
       <workItem from="1693776178909" duration="20120000" />
-      <workItem from="1693875123353" duration="828000" />
+      <workItem from="1693875123353" duration="3222000" />
     </task>
     <servers />
   </component>
@@ -146,6 +154,8 @@
         <option value="$PROJECT_DIR$/public/options.js.map" />
         <option value="$PROJECT_DIR$/options/options.js" />
         <option value="$PROJECT_DIR$/options/options.js.map" />
+        <option value="$PROJECT_DIR$/public/src/getAverageColor.js.map" />
+        <option value="$PROJECT_DIR$/public/src/getAverageColor.js" />
       </list>
     </option>
   </component>
