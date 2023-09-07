@@ -10,7 +10,11 @@ chrome.storage.local.get(["savedShorts"]).then((result) => {
     ($("nav") as HTMLElement).insertAdjacentHTML("afterend", `<p class="saved-shorts-number">${numberOfShorts >= 1 ? numberOfShorts : ""} ${numberOfShorts > 1 ? "Shorts" : numberOfShorts === 1 ? "Short" : "No shorts were saved yet"}</p>`);
     result.savedShorts.forEach((short: ShortDetails) => {
 
-        const shortHTML = `<div class="short-container"><div class="short" id="${short.id}" style="background-image:url(https://i.ytimg.com/vi/${short.id}/frame0.jpg); ;" >
+        const shortHTML = `<div class="short-container"><div class="short" id="${short.id}" style="background-image:url(https://i.ytimg.com/vi/${short.id}/frame0.jpg);" >
+            <style>.ytp-chrome-top, .ytp-show-cards-title {
+  display: none !important;
+}</style>
+            <iframe width="370" height="658" src="https://www.youtube.com/embed/${short.id}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           <div class="short-links-container">
                <div class="short-links">
                            <img style="display: none" class="remove-short" src="assets/icons/Close_MD.svg" alt="Remove Short">

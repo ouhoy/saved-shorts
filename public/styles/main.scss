@@ -49,6 +49,7 @@ a {
       background-size: cover;
       transition: all .3s ease-in-out;
       box-shadow: 0 0 8px -2px #0003;
+      overflow: hidden;
 
 
       &:hover {
@@ -206,4 +207,12 @@ nav {
       height: 24px !important;
     }
   }
+}
+
+
+//Loaded Video
+
+
+.ytp-chrome-top, .ytp-show-cards-title, iframe {
+  display: none !important;
 }
