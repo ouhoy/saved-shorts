@@ -12,6 +12,10 @@ a {
   text-decoration: none;
 }
 
+.hidden {
+  display: none;
+}
+
 .container {
   max-width: 1174px;
   margin: 0 auto;
@@ -67,6 +71,16 @@ a {
   gap: 8px;
   opacity: 0;
   transition: all 0.2s ease-in-out;
+}
+.shorts .short-container .short .short-links-container .short-links .options-menu {
+  width: 160px;
+  height: 88px;
+  background: white;
+  position: absolute;
+  top: 64px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 8px -2px rgba(0, 0, 0, 0.2);
 }
 .shorts .short-container .short .short-links-container .short-links img {
   width: 24px;

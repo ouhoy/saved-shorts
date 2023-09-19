@@ -10,18 +10,18 @@ chrome.storage.local.get(["savedShorts"]).then((result) => {
     ($("nav") as HTMLElement).insertAdjacentHTML("afterend", `<p class="saved-shorts-number">${numberOfShorts >= 1 ? numberOfShorts : ""} ${numberOfShorts > 1 ? "Shorts" : numberOfShorts === 1 ? "Short" : "No shorts were saved yet"}</p>`);
     result.savedShorts.forEach((short: ShortDetails) => {
 
-        const shortHTML = `<div class="short-container"><div class="short" id="${short.id}" style="background-image:url(https://i.ytimg.com/vi/${short.id}/frame0.jpg);" >
+        const shortHTML = `<div class="short-container"><div class="short"  style="background-image:url(https://i.ytimg.com/vi/${short.id}/frame0.jpg);" >
             <style>.ytp-chrome-top, .ytp-show-cards-title {
   display: none !important;
 }</style>
-            <iframe width="370" height="658" src="https://www.youtube.com/embed/${short.id}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           <div class="short-links-container">
                <div class="short-links">
                            <img style="display: none" class="remove-short" src="assets/icons/Close_MD.svg" alt="Remove Short">
 
-            <a title="Play the video in a new tab." target="_blank" href="https://www.youtube.com/shorts/${short.id}">
-                <img src="assets/icons/More_Vertical.svg" alt="Link">
-            </a>
+            
+                <img title="Options" id="${short.id}" class="options" src="assets/icons/More_Vertical.svg" alt="Link">
+                <div class="options-menu hidden"></div>
+            
         </div>  
         </div>
    
@@ -40,12 +40,25 @@ chrome.storage.local.get(["savedShorts"]).then((result) => {
 </div></div>`;
 
 
-        ($(".shorts") as HTMLElement).insertAdjacentHTML("beforeend", shortHTML)
+        ($(".shorts") as HTMLElement).insertAdjacentHTML("beforeend", shortHTML);
+
+
     })
 
 
 });
 
+($(".container") as HTMLElement).addEventListener("click", function (e) {
+    const optionBtn = (e.target as HTMLElement).closest(".options")
+
+    if (!optionBtn) return;
+    const optionsMenu = optionBtn.nextElementSibling;
+
+    if (optionsMenu) {
+        optionsMenu.classList.toggle("hidden")
+    }
+
+})
 
 resetButton.addEventListener("click", () => {
 

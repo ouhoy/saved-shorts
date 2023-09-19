@@ -46,6 +46,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
   <component name="ProjectId" id="2TUXPuQcsm7yMdBRjlrNEw2FVB7" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -54,6 +57,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
@@ -128,7 +132,11 @@
       <workItem from="1692457777158" duration="6932000" />
       <workItem from="1693262993385" duration="5573000" />
       <workItem from="1693776178909" duration="20120000" />
-      <workItem from="1693875123353" duration="5695000" />
+      <workItem from="1693875123353" duration="6329000" />
+      <workItem from="1694255130469" duration="2005000" />
+      <workItem from="1694291182584" duration="1192000" />
+      <workItem from="1694462969891" duration="4377000" />
+      <workItem from="1694905705395" duration="1376000" />
     </task>
     <servers />
   </component>

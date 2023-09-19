@@ -17,6 +17,10 @@ a {
   text-decoration: none;
 }
 
+.hidden {
+  display: none;
+}
+
 .container {
   max-width: 1174px;
   margin: 0 auto;
@@ -81,6 +85,18 @@ a {
           gap: 8px;
           opacity: 0;
           transition: all .2s ease-in-out;
+
+          .options-menu {
+            width: 160px;
+            height: 88px;
+            background: white;
+            position: absolute;
+            top: 64px;
+            border-radius: 8px;
+            transition: all .2s ease-in-out;
+            box-shadow: 0 0 8px -2px #0003;
+
+          }
 
           img {
             width: 24px;
